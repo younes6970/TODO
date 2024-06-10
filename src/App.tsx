@@ -1,6 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
-import Todo from "./components/TODO";
-import { FormEvent, useEffect, useState } from "react";
+import Todo, { DataFormType } from "./components/TODO";
+import { useEffect, useState } from "react";
 import styles from "./app.module.css";
 
 function App() {
@@ -12,17 +12,14 @@ function App() {
       isDone: boolean;
     }[]
   >([]);
+
   const getList = async () => {
     const response = await fetch("http://localhost:3000/list");
     const data = await response.json();
     setList(data);
   };
-  const onSubmit = async (
-    event: FormEvent<HTMLFormElement>,
-    data,
-    id?: number
-  ) => {
-    event.preventDefault();
+  
+  const onSubmit = async (data: DataFormType, id?: number) => {
     if (id) {
       const response = await fetch("http://localhost:3000/list/" + id, {
         method: "put",
@@ -36,7 +33,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, isDone: false }),
     });
-    getList()
+    getList();
     return response.ok;
   };
 
