@@ -1,6 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import Todo from "./components/TODO";
 import { FormEvent, useEffect, useState } from "react";
+import styles from "./app.module.css"
 
 function App() {
   const [list, setList] = useState<
@@ -46,7 +47,7 @@ function App() {
     getList();
   }, []);
   return (
-    <div>
+    <div className={styles.box}>
       <Todo onSubmit={onSubmit} onRemove={onRemove} onDone={onDone} />
       {!!list.length && <h1>To-do list</h1>}
       <div>

@@ -104,7 +104,7 @@ const Todo = ({
       <textarea
         tabIndex={2}
         name="description"
-        placeholder="description :"
+        placeholder="Description :"
         value={data.description}
         onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
           onChange(event, DATA_ENUM.DESCRIPTION)
