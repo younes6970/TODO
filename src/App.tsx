@@ -2,6 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import Todo, { DataFormType } from "./components/TODO";
 import { useEffect, useState } from "react";
 import styles from "./app.module.css";
+import { getTodoList } from "./utils/requester";
 
 function App() {
   const [list, setList] = useState<
@@ -14,11 +15,11 @@ function App() {
   >([]);
 
   const getList = async () => {
-    const response = await fetch("http://localhost:3000/list");
-    const data = await response.json();
-    setList(data);
+    getTodoList().then(value => console.log("ff" , value))
+    // const data = await response.json();
+    // setList(data);
   };
-  
+
   const onSubmit = async (data: DataFormType, id?: number) => {
     if (id) {
       const response = await fetch("http://localhost:3000/list/" + id, {
