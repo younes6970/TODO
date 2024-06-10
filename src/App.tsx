@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import Todo from "./components/TODO";
 import { FormEvent, useEffect, useState } from "react";
-import styles from "./app.module.css"
+import styles from "./app.module.css";
 
 function App() {
   const [list, setList] = useState<
@@ -9,7 +9,7 @@ function App() {
       title: string;
       description: string;
       id: number;
-      isDone: boolean
+      isDone: boolean;
     }[]
   >([]);
   const getList = async () => {
@@ -27,12 +27,12 @@ function App() {
     });
   };
 
-  const onRemove = async (id) => {
-    // const value = list.filter((item) => item.id !== id);
-    const response = await fetch("http://localhost:3000/list/" + id, {
+  const onRemove = async (id: number) => {
+    await fetch("http://localhost:3000/list/" + id, {
       method: "delete",
       headers: { "Content-Type": "application/json" },
     });
+    getList()
   };
 
   const onDone = async (id: number) => {
@@ -43,8 +43,7 @@ function App() {
       body: JSON.stringify({ ...value, isDone: true }),
     });
 
-    getList()
-    
+    getList();
   };
 
   useEffect(() => {
