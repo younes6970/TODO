@@ -9,6 +9,7 @@ function App() {
       title: string;
       description: string;
       id: number;
+      isDone: boolean
     }[]
   >([]);
   const getList = async () => {
@@ -34,13 +35,16 @@ function App() {
     });
   };
 
-  const onDone = async (id) => {
+  const onDone = async (id: number) => {
     const value = list.find((item) => item.id === id);
-    const response = await fetch("http://localhost:3000/list/" + id, {
+    await fetch("http://localhost:3000/list/" + id, {
       method: "put",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...value, isDone: true }),
     });
+
+    getList()
+    
   };
 
   useEffect(() => {
@@ -50,12 +54,13 @@ function App() {
     <div className={styles.box}>
       <Todo onSubmit={onSubmit} onRemove={onRemove} onDone={onDone} />
       {!!list.length && <h1>To-do list</h1>}
-      <div>
+      <div className={styles.boxList}>
         {list.map((item) => (
           <Fragment key={item.id}>
             <Todo
               title={item.title}
               description={item.description}
+              isDone={item.isDone}
               onSubmit={onSubmit}
               onRemove={onRemove}
               id={item.id}

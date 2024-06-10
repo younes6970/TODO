@@ -62,17 +62,19 @@ const Todo = ({
   return (
     <form
       onSubmit={(event) => onSubmit(event, data)}
-      className={styles.boxForm}
+      className={`${styles.boxForm} ${isDone && styles.boxFormDone}`}
     >
       {title && (
         <div className={styles.boxAction}>
-          <button
-            type="button"
-            className={styles.btnAction}
-            onClick={() => onDone(id)}
-          >
-            Done
-          </button>
+          {!isDone && (
+            <button
+              type="button"
+              className={styles.btnAction}
+              onClick={() => onDone(id as number)}
+            >
+              Done
+            </button>
+          )}
           {!isDone && (
             <button type="button" className={styles.btnAction} onClick={onEdit}>
               Edit

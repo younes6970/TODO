@@ -8,7 +8,10 @@
   padding: 18px;
   gap: 12px;
 }
-
+.boxFormDone{
+background-color: rgba(68, 238, 68, 0.15);
+border: none;
+}
 .boxAction {
   position: absolute;
   display: flex;
