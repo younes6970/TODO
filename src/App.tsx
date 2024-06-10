@@ -17,14 +17,27 @@ function App() {
     const data = await response.json();
     setList(data);
   };
-  const onSubmit = async (event: FormEvent<HTMLFormElement>, data) => {
+  const onSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+    data,
+    id?: number
+  ) => {
     event.preventDefault();
-
+    if (id) {
+      const response = await fetch("http://localhost:3000/list/" + id, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data }),
+      });
+      return response.ok;
+    }
     const response = await fetch("http://localhost:3000/list", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, isDone: false }),
     });
+    getList()
+    return response.ok;
   };
 
   const onRemove = async (id: number) => {
@@ -32,7 +45,7 @@ function App() {
       method: "delete",
       headers: { "Content-Type": "application/json" },
     });
-    getList()
+    getList();
   };
 
   const onDone = async (id: number) => {

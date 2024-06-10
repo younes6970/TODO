@@ -14,7 +14,7 @@ type PropsType = {
   title?: DataType[DATA_ENUM.TITLE];
   description?: DataType[DATA_ENUM.DESCRIPTION];
   isDone?: boolean;
-  onSubmit: (event: never, data: never) => void;
+  onSubmit: (event: never, data: never, id?: number) => Promise<boolean>;
   onRemove: (id: number) => void;
   onDone: (id: number) => void;
   id?: number;
@@ -59,9 +59,19 @@ const Todo = ({
     }
   };
 
+  const submit = (event) => {
+    onSubmit(event, data, id).then(() => {
+      if (id) {
+        setIsEdit(false);
+      } else {
+        setData({ title: "", description: "" });
+      }
+    });
+  };
+
   return (
     <form
-      onSubmit={(event) => onSubmit(event, data)}
+      onSubmit={submit}
       className={`${styles.boxForm} ${isDone && styles.boxFormDone}`}
     >
       {title && (
