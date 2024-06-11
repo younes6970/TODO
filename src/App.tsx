@@ -1,5 +1,5 @@
 import { Fragment } from "react/jsx-runtime";
-import Todo, { DataFormType } from "./components/TODO";
+import Todo, { DataFormType } from "./components/todo/TODO";
 import { useEffect, useState } from "react";
 import styles from "./app.module.css";
 
